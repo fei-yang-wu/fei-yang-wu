@@ -1,0 +1,82 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { getCollection, render } from "astro:content";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+
+export async function getStaticPaths() {
+    const projects = await getCollection("projects");
+    return projects.map((project) => ({
+        params: { slug: project.id },
+        props: project,
+    }));
+}
+
+const project = Astro.props;
+const { Content } = await render(project);
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead
+            title={project.data.title}
+            description={project.data.description}
+        />
+    </head>
+    <body>
+        <Header />
+        <main style="max-width: 800px; margin: 2rem auto; padding: 1rem;">
+            <a href="/projects" style="color: var(--accent);"
+                >← Back to Projects</a
+            >
+            <h1>{project.data.title}</h1>
+            <p>{project.data.description}</p>
+            <p>
+                <strong>Start:</strong>
+                {project.data.startDate?.toLocaleDateString?.()}
+                {
+                    project.data.endDate && (
+                        <span>
+                            {" "}
+                            &ndash; <strong>End:</strong>{" "}
+                            {project.data.endDate?.toLocaleDateString?.()}
+                        </span>
+                    )
+                }
+            </p>
+            {
+                project.data.media && (
+                    <img
+                        src={
+                            typeof project.data.media === "string"
+                                ? project.data.media
+                                : project.data.media.src
+                        }
+                        alt={project.data.title}
+                        style="width: 100%; max-width: 600px; object-fit: cover; border-radius: 12px; margin-bottom: 1rem;"
+                    />
+                )
+            }
+            <article class="prose">
+                <Content />
+            </article>
+            {
+                project.data.link && (
+                    <p>
+                        <a
+                            href={project.data.link}
+                            target="_blank"
+                            rel="noopener"
+                            style="color: var(--accent);"
+                        >
+                            External Link
+                        </a>
+                    </p>
+                )
+            }
+        </main>
+        <Footer />
+    </body>
+</html>

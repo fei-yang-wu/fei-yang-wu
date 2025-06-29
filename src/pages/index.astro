@@ -1,0 +1,19 @@
+---
+import HomeLayout from "../layouts/HomeLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ProfileColumn from "../components/ProfileColumn.astro";
+import RecentNews from "../components/RecentNews.astro";
+import SelectedPapers from "../components/SelectedPapers.astro";
+import { getCollection } from "astro:content";
+
+const publications = await getCollection("publications");
+---
+
+<HomeLayout>
+	<Header slot="header" />
+	<ProfileColumn slot="profile" />
+	<RecentNews slot="news" />
+	<SelectedPapers slot="papers" publications={publications} />
+	<Footer slot="footer" />
+</HomeLayout>

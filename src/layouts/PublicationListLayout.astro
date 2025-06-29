@@ -1,0 +1,13 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+---
+
+<BaseLayout>
+    <slot name="header" slot="header" />
+    <section class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold mb-4">Publications</h1>
+        <slot />
+    </section>
+
+    <slot name="footer" slot="footer" />
+</BaseLayout>

@@ -1,0 +1,66 @@
+---
+import PublicationLayout from "../../layouts/PublicationLayout.astro";
+import type { CollectionEntry } from "astro:content";
+import { render, getCollection } from "astro:content";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import type { APIContext } from "astro";
+
+export async function getStaticPaths() {
+  const publications = await getCollection("publications");
+  return publications.map((pub) => ({
+    params: { slug: pub.data.slug },
+    props: pub,
+  }));
+}
+
+const publication = Astro.props as CollectionEntry<"publications">;
+const { Content } = await render(publication);
+
+function boldMyName(authors: string) {
+  return authors.replace(/Feiyang Wu/g, "<strong>Feiyang Wu</strong>");
+}
+---
+
+<PublicationLayout>
+  <Header slot="header" />
+  <article class="prose mx-auto py-8">
+    <h1>{publication.data.title}</h1>
+    <p>
+      <strong>Authors:</strong>
+      <span set:html={boldMyName(publication.data.authors)} />
+    </p>
+    <p>
+      <strong>Venue:</strong>
+      {publication.data.venue} ({publication.data.year})
+    </p>
+    {
+      publication.data.pdf && (
+        <p>
+          <a href={publication.data.pdf} class="underline text-blue-600">
+            [PDF]
+          </a>
+        </p>
+      )
+    }
+    {
+      publication.data.code && (
+        <p>
+          <a href={publication.data.code} class="underline text-blue-600">
+            [Code]
+          </a>
+        </p>
+      )
+    }
+    {
+      publication.data.abstract && (
+        <p>
+          <strong>Abstract:</strong>{" "}
+          <span set:html={publication.data.abstract} />
+        </p>
+      )
+    }
+    <Content />
+  </article>
+  <Footer slot="footer" />
+</PublicationLayout>

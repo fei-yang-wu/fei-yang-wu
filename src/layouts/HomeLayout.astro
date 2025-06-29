@@ -1,0 +1,31 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import SocialLinks from "../components/SocialLinks.astro";
+---
+
+<BaseLayout>
+    <slot name="header" slot="header" />
+    <section class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        <aside
+            class="md:col-span-1 bg-white rounded-xl shadow-lg p-6 border border-gray-200"
+        >
+            <div class="sticky top-8">
+                <slot name="profile" />
+            </div>
+        </aside>
+        <div class="md:col-span-2 flex flex-col gap-8">
+            <section
+                class="bg-white rounded-xl shadow-lg p-6 border border-gray-200"
+            >
+                <slot name="news" />
+            </section>
+            <section
+                class="bg-white rounded-xl shadow-lg p-6 border border-gray-200"
+            >
+                <slot name="papers" />
+            </section>
+        </div>
+    </section>
+    <slot name="footer" slot="footer" />
+</BaseLayout>

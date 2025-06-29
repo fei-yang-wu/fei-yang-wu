@@ -1,0 +1,13 @@
+---
+import PublicationListLayout from "../layouts/PublicationListLayout.astro";
+import PublicationList from "../components/PublicationList.astro";
+import { getCollection } from "astro:content";
+import Header from "../components/Header.astro";
+
+const publications = await getCollection("publications");
+---
+
+<Header />
+<PublicationListLayout>
+    <PublicationList publications={publications} />
+</PublicationListLayout>

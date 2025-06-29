@@ -1,0 +1,22 @@
+---
+import "../styles/global.css";
+// Base layout for the site
+---
+
+<html lang="en">
+    <head>
+        <slot name="head" />
+    </head>
+    <body class="min-h-screen flex flex-col">
+        <slot name="header" />
+        <main class="flex-1">
+            <slot />
+        </main>
+        <slot name="footer" />
+    </body>
+</html>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    rel="stylesheet"
+/>

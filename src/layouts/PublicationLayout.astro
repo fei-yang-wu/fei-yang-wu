@@ -1,0 +1,12 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+---
+
+<BaseLayout>
+    <slot name="header" slot="header" />
+    <section class="container mx-auto py-8">
+        <slot />
+    </section>
+    <slot name="footer" slot="footer" />
+</BaseLayout>
+
