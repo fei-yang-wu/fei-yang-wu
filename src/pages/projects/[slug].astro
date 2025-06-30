@@ -27,10 +27,10 @@ const { Content } = await render(project);
     </head>
     <body>
         <Header />
-        <main style="max-width: 800px; margin: 2rem auto; padding: 1rem;">
-            <a href="/projects" style="color: var(--accent);"
-                >← Back to Projects</a
-            >
+        <main class="project-detail-main">
+            <a href="/projects" class="project-detail-back">
+                 Back to Projects
+            </a>
             <h1>{project.data.title}</h1>
             <p>{project.data.description}</p>
             <p>
@@ -55,7 +55,7 @@ const { Content } = await render(project);
                                 : project.data.media.src
                         }
                         alt={project.data.title}
-                        style="width: 100%; max-width: 600px; object-fit: cover; border-radius: 12px; margin-bottom: 1rem;"
+                        class="project-detail-img"
                     />
                 )
             }
@@ -69,7 +69,7 @@ const { Content } = await render(project);
                             href={project.data.link}
                             target="_blank"
                             rel="noopener"
-                            style="color: var(--accent);"
+                            class="project-detail-link"
                         >
                             External Link
                         </a>
